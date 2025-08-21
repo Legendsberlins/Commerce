@@ -1,0 +1,40 @@
+<!--create.html-->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+    <h2 class="mb-4">Create Listing</h2>
+    {% if message %}
+        <div class="mb-3">{{ message }}</div>
+    {% endif %}
+    <form action="{% url 'create' %}" method="post" class="w-100" style="max-width: 350px;">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <input class="form-control form-control-sm text-center" autofocus type="text" name="title" placeholder="Listing Title" required>
+        </div>
+        <div class="form-group mb-2">
+            <input class="form-control form-control-sm text-center" type="text" name="description" placeholder="Description" required>
+        </div>
+        <div class="form-group mb-2">
+            <input class="form-control form-control-sm text-center" step="0.01" type="number" name="bid" placeholder="Bid" required>
+        </div>
+        <div class="form-group mb-2">
+            <input class="form-control form-control-sm text-center" type="url" name="url" placeholder="Photo URL">
+        </div>
+        <div class="form-group mb-3">
+            <select class="form-control form-control-sm text-center" id="category" name="category" required>
+                <option value="">-- Please choose an option --</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Books">Books</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Home">Home</option>
+                <option value="Toys">Toys</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input class="btn btn-primary px-4" type="submit" value="Add">
+        </div>
+    </form>
+</div>
+{% endblock %}

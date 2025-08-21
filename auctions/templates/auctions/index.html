@@ -1,0 +1,32 @@
+<!--index.html-->
+{% extends "auctions/layout.html" %}
+{% load custom_filters %}
+
+{% block body %}
+    <h2 class="text-white">Active Listings</h2>
+
+    {% if listings %}
+        {% for listing in listings %}
+        <a href="{% url 'listing' listing.id %}" class="text-decoration-none text-reset d-block w-100 p-0 m-0" style="border: none;">
+            <div class="row align-items-center mb-4 border p-3 shadow-sm listing-link">
+                <div class="col-md-4">      
+                    {% if listing.photo_url %}
+                        <img src="{{ listing.photo_url }}" alt="{{ listing.title }}" height="300px" width="100%" class="img-fluid">
+                    {% else %}
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center">
+                            No Image
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-8 text-white">
+                    <h4>{{ listing.title }}</h4>
+                    <h6>{{ listing.description }}</h6>
+                    <p style="color: #28a745; font-size: 2rem; font-weight: bold;">{{ listing.bid|currency }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p>No listing Available</p>
+    {% endif %}
+{% endblock %}

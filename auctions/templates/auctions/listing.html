@@ -1,0 +1,89 @@
+<!--listing.html-->
+{% extends "auctions/layout.html" %}
+{% load custom_filters %}
+
+{% block body %}
+    <h4>{{ listing.title }}</h4>
+    {% if not is_owner and listing.is_active %}
+        <form method = "post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary mb-4 watchlist-btn" name = "action" value="watchlist">
+                {% if in_watchlist %}
+                    Remove from Watchlist
+                {% else %}
+                    Add to Watchlist
+                {% endif %}
+            </button>
+        </form>
+    {% endif %}
+    {% if listing.photo_url %}
+        <img src="{{ listing.photo_url }}" alt="{{ listing.title }}" height="300px" width="100%" class="img-fluid">
+    {% else %}
+        <div>
+            No Image
+        </div>
+    {% endif %}
+    <h6>{{ listing.description }}</h6>
+    <h3 style="color: #28a745; font-size: 2rem; font-weight: bold;">{{ listing.bid|currency }}</h3>
+    {% if not is_owner and listing.is_active %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group mb-2" style="max-width: 250px;">
+                <input class="form-control form-control-sm" type="number" name="bid" placeholder="Bid">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary mb-4 px-4" name = "action" value="bid">Place Bid</button>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="text
+                        {% if message.tags == 'error' %}
+                            text-danger
+                        {% else %}
+                            text-success
+                        {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </form>
+    {% endif %}
+    {% if is_owner and listing.is_active %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary mb-4 watchlist-btn" name = "action" value="close"> Close
+            </button>
+        </form>
+    {% endif %}
+    {% if is_winner %}
+        <p class="text-success">Congratulations! You've won the auction for this item</p>
+    {% endif %}
+    <form method="post" class="w-100" style="max-width: 300px;">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <input class="form-control form-control-sm" type="text" name="comment" placeholder="Comment">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary mb-4 px-4" name = "action" value="comment">Comment</button>
+        </div>
+    </form>
+    <h4 class="mt-5">Comments</h4>
+    {% if comment %}
+        <div class="comments-section" style="max-width: 350px;">
+            {% for comments in comment %}
+                <div class="mb-2">
+                    <div class="card" style="font-size: 0.85rem;">
+                        <div class="card-body p-2">
+                            <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.75rem;">
+                                {{ comments.user }}
+                            </h6>
+                            <p class="card-text mb-1" style="color:black;">{{ comments.comment }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="font-size: 0.85rem;">No comments yet.</p>
+    {% endif %}
+{% endblock %}

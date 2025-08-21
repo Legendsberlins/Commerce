@@ -1,0 +1,79 @@
+<!--layout.html-->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="icon" type="image/png" href="{% static 'auctions/dauction_logo-removebg-preview.png' %}">
+        <script src="{% static 'auctions/js/script.js' %}"></script>
+        <style>
+            .active-page {
+                color: #DBB957 !important;
+                font-weight: bold;
+                border-bottom: 2px solid #DBB957;
+            }
+            .active-page:hover{
+                color: white !important;
+            }
+        </style>
+    </head>
+    <body style="background-color: #23272b; color: #f8f9fa;">
+        <img src="{% static 'auctions/dauction_logo-removebg-preview.png' %}" alt="Dauction Logo" class="img-fluid mb-3" style="max-width: 200px; display: block;">
+            {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+            {% else %}
+                Not signed in.
+            {% endif %}
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background: none;">
+            <a class="navbar-brand d-lg-none" href="#">Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'index' %}active-page{% endif %}" href="{% url 'index' %}">Active Listings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'categories' %}active-page{% endif %}" href="{% url 'categories' %}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'create' %}active-page{% endif %}" href="{% url 'create' %}">Create Listing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'watchlist' %}active-page{% endif %}" href="{% url 'watchlist' %}">Watchlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'logout' %}active-page{% endif %}" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'login' %}active-page{% endif %}" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white {% if request.resolver_match.url_name == 'register' %}active-page{% endif %}" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <hr>
+        {% block body %}
+        {% endblock %}
+        <footer class="mt-auto py-3" style="background: #23272b; color: #DBB957; text-align: center;">
+            <div>
+                &copy; {{ year|default:2025 }} Dauction. All rights reserved.
+                <span class="ml-2"><i class="fa fa-gavel"></i></span>
+            </div>
+        </footer>
+    </body>
+</html>
