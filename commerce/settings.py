@@ -29,6 +29,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['commerce-vjcr.onrender.com', 'localhost']
 
+CSRF_TRUSTED_ORIGINS = ['https://commerce-vjcr.onrender.com']
+
 LOGIN_URL = reverse_lazy('login')  # Authenticated users will be directed to the login page if try to access some features
 
 
