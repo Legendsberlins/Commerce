@@ -47,3 +47,15 @@ a:hover .listing-link, .listing-link:hover {
 .categories-list:hover{
     background-color: rgb(145, 143, 143);
 }
+
+@media (max-width: 600px) {
+    body {
+        font-size: 1.2rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 1.5em;
+    }
+    .form-control, .btn, .nav-link {
+        font-size: 1.1em;
+    }
+}
