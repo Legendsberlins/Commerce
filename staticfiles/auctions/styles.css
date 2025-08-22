@@ -1,6 +1,7 @@
 body {
     padding: 10px;
     background: rgb(255, 255, 255);
+    font-size: 1.5rem;
 }
 
 .nav-link{
