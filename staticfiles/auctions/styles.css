@@ -1,0 +1,49 @@
+body {
+    padding: 10px;
+    background: rgb(255, 255, 255);
+}
+
+.nav-link{
+    font-weight: bold;
+}
+
+.nav-link:hover, .nav-link:focus {
+    background-color: #DBB957 !important;
+}
+
+
+.listing-link {
+    transition: background 0.2s;
+}
+
+a:hover .listing-link, .listing-link:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.btn-primary{
+    background-color: #DBB957;
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: #a88e3f;
+}
+
+.btn-primary:focus, .btn-primary:active {
+    background-color: #DBB957 !important;
+    border-color: #DBB957 !important;
+    box-shadow: 0 0 0 0.2rem #DBB957 !important;
+}
+
+.btn-secondary{
+    background-color: grey;
+}
+
+.form-control:focus, .form-control-sm:focus {
+    border-color: #DBB957;
+    box-shadow: 0 0 0 0.2rem #DBB957;
+}
+
+.categories-list:hover{
+    background-color: rgb(145, 143, 143);
+}
