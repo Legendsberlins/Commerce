@@ -87,7 +87,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///' + str(BASE_DIR / 'db.sqlite3')
     )
-}
+} # Connects postgres database on render.com or uses sqlite for local development
 
 AUTH_USER_MODEL = 'auctions.User'
 
