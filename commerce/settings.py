@@ -91,10 +91,10 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
 # Force SSL in production (Render Postgres requires it)
-if os.environ.get('DATABASE_URL', '').startswith('postgres://'):
-    DATABASES['default']['OPTIONS'] = {"sslmode": "require"}# Connects postgres database on render.com or uses sqlite for local development
+if os.environ.get('DATABASE_URL', '').startswith(('postgres://', 'postgresql://')):
+    DATABASES['default']['OPTIONS'] = {"sslmode": "require"}
+# Connects postgres database on render.com or uses sqlite for local development
 
 AUTH_USER_MODEL = 'auctions.User'
 
