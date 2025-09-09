@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: commerce
+    env: docker
+    plan: free
+    startCommand: gunicorn commerce.wsgi:application --bind 0.0.0.0:$PORT
+    releaseCommand: python manage.py migrate
