@@ -83,15 +83,18 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",  # fallback only for local dev
-        conn_max_age=600,   # keeps connections open (good for Postgres on Render)
-        ssl_require=not os.getenv("DEBUG", "False").lower() in ("true", "1")  # force SSL in production
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
     )
-}# Connects postgres database on render.com or uses sqlite for local development
+}
+
+# Force SSL in production (Render Postgres requires it)
+if os.environ.get('DATABASE_URL', '').startswith('postgres://'):
+    DATABASES['default']['OPTIONS'] = {"sslmode": "require"}# Connects postgres database on render.com or uses sqlite for local development
 
 AUTH_USER_MODEL = 'auctions.User'
 
