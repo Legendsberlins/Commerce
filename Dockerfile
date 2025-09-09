@@ -10,4 +10,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . /app/
 
-CMD ["python", "commerce.wsgi:application", "--bind", "0.0.0.0:${PORT}"]
+CMD ["gunicorn", "commerce.wsgi:application", "--bind", "0.0.0.0:${PORT}"]
