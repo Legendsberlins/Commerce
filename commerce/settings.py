@@ -87,8 +87,7 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3')
     )
 }
 # Force SSL in production (Render Postgres requires it)
