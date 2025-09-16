@@ -1,16 +1,18 @@
+# Use an official Python runtime
 FROM python:3.11-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
+# Set workdir
 WORKDIR /app
 
-# Install build dependencies
-RUN apt-get update && apt-get install -y gcc libpq-dev
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Copy project
+COPY . .
 
-COPY . /app/
+# Collect static files (optional if you use whitenoise)
+# RUN python manage.py collectstatic --noinput
 
-CMD gunicorn commerce.wsgi:application --bind 0.0.0.0:8000
+# Start command: run migrations then start Gunicorn
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn commerce.wsgi:application --bind 0.0.0.0:8000"]
