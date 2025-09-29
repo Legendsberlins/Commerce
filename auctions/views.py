@@ -187,7 +187,7 @@ def listing_view(request, listing_id):
             else:
                 try:
                     bid_amount = Decimal(bid_input)
-                    if (bid_amount < listing.bid) or (highest_bid and bid_amount < highest_bid.amount):
+                    if (bid_amount <= listing.bid) or (highest_bid and bid_amount <= highest_bid.amount):
                         messages.error(request, "Bid must be higher than highest bid")
                     else:
                         new_bid = Bid(user=user, listing=listing, amount=bid_amount)
